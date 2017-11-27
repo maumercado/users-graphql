@@ -1,5 +1,6 @@
 const express = require("express");
 const expressGraphQL = require("express-graphql");
+const schema = require("./schema/schema");
 
 const initializeApp = async () => {
     const app = express();
@@ -7,6 +8,7 @@ const initializeApp = async () => {
     app.use(
         "/graphql",
         expressGraphQL({
+            schema,
             graphiql: true
         })
     );

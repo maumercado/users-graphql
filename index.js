@@ -14,8 +14,8 @@ const initializeApp = async () => {
     );
 
     try {
-        app.listen(3000);
-        console.log("App listening port 3000");
+        app.listen(4000);
+        console.log("App listening port 4000");
     } catch (error) {
         console.error(error);
     }

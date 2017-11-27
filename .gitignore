@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/node,macos,visualstudiocode
 
+# Json-server
+db.json
+
 ### macOS ###
 *.DS_Store
 .AppleDouble

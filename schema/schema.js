@@ -1,11 +1,7 @@
 const graphql = require("graphql");
-const _ = require("lodash");
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql;
 
-const users = [
-    { id: "23", firstName: "Bill", age: 20 },
-    { id: "47", firstName: "Page", age: 21 }
-];
+const axios = require("axios");
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql;
 
 const UserType = new GraphQLObjectType({
     name: "User",
@@ -22,8 +18,18 @@ const RootQuery = new GraphQLObjectType({
         user: {
             type: UserType,
             args: { id: { type: GraphQLString } },
-            resolve (parentValue, { id }) {
-                return _.find(users, { id });
+            async resolve (parentValue, { id }) {
+                try {
+                    let response = await axios.get(
+                        `http://localhost:3000/users/${id}`
+                    );
+                    return response.data;
+                } catch (error) {
+                    // for now this simply returns an error, but we could
+                    // create an error normalizer that returns a specific
+                    // error object per http status
+                    return error;
+                }
             }
         }
     }
